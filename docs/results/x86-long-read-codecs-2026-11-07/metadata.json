@@ -1,0 +1,213 @@
+{
+  "date": "2026-11-07",
+  "architecture": "x86-64",
+  "tested_commit": "6b61f30bfe787a87348d5d3eff66708f01d95540",
+  "post_run_main_reviewed": "45d8d05293d6c87ecce65dd62a68afebdf7bb75f",
+  "compiler": "rustc 1.98.1",
+  "build": "release, fat LTO, one codegen unit, default target with library runtime dispatch",
+  "timing": "one pinned core; one warmup plus seven timed rounds; rotating order; medians; setup and I/O excluded; required per-block allocations/copies included",
+  "phases": {
+    "survey": {
+      "rounds": 7,
+      "warmups": 1,
+      "sample_budget_mib": 8
+    },
+    "rust-extra": {
+      "rounds": 7,
+      "budget_mib": 8,
+      "settings": "zflate:5,libflate:0,deflate-rs:1,deflate-rs:6,yazi:1,yazi:5,ruzstd:1,XZ-Rust:0,XZ-Rust:1,XZ-Rust:5",
+      "references": "libdeflate:5",
+      "decode_only": false,
+      "binary_sha256": "9021f3baf4ee0fd600297fce503bf6cd09356f754ed776798c07937be03a47e0"
+    },
+    "size-sweep": {
+      "rounds": 7,
+      "budget_mib": 8,
+      "settings": "zflate:5,libdeflate:2,libdeflate:3,libdeflate:4,libdeflate:6,zlib-ng:2,zlib-ng:3,zlib-ng:4,zlib-ng:6,zlib-rs:2,zlib-rs:3,zlib-rs:4,zlib-rs:6,zenflate:2,zenflate:3,zenflate:4,zenflate:6",
+      "references": "libdeflate:5",
+      "decode_only": false,
+      "binary_sha256": "9021f3baf4ee0fd600297fce503bf6cd09356f754ed776798c07937be03a47e0"
+    },
+    "full-confirm": {
+      "rounds": 7,
+      "budget_mib": 0,
+      "settings": "zflate:5,libdeflate:5,zlib-ng:5,zlib-rs:5,zenflate:5,ISA-L:1,ISA-L:3,Zstandard-C:1,Zstandard-C:3,Zstandard-C:5,libdeflate:3",
+      "references": "libdeflate:5",
+      "decode_only": false,
+      "binary_sha256": "9021f3baf4ee0fd600297fce503bf6cd09356f754ed776798c07937be03a47e0"
+    },
+    "decode": {
+      "rounds": 7,
+      "budget_mib": 8,
+      "settings": "zflate:1,libdeflate:1,zlib:1,zlib-ng:1,zlib-rs:1,miniz_oxide:1,zenflate:1,fdeflate:0,ISA-L:1,libflate:0,yazi:1",
+      "references": "libdeflate:5,ISA-L:3,zlib-ng:5,zflate:5",
+      "decode_only": true,
+      "binary_sha256": "9021f3baf4ee0fd600297fce503bf6cd09356f754ed776798c07937be03a47e0"
+    }
+  },
+  "samples": [
+    {
+      "sample": "ont_hg003",
+      "region": "chr1:10000000-12000000",
+      "selection": "First up to 2000 records with stored sequence >=1000 bases; capped at 100 MiB SAM records",
+      "records": 1293,
+      "bases": 25875704,
+      "median_read_length": 14031,
+      "min_read_length": 1009,
+      "max_read_length": 98576,
+      "bam_bytes": 28839620,
+      "bam_sha256": "85e073137948250b702912936e0aa0de01ec9b92b5fb75f6687f84660c471255",
+      "canonical_records_sha256": "ae3a223207052354c9c72ba2aa344ddc1a0410d3249727bbd6f9067981b8e6ad",
+      "alignment": "aligned",
+      "crams": [
+        {
+          "version": "3.0",
+          "container_count": 14,
+          "methods": {
+            "1": 164,
+            "0": 366,
+            "4": 153
+          },
+          "gzip_sizes": {
+            "up_to_65535": 145,
+            "over_65535": 18
+          },
+          "inflated_bytes": 10792359,
+          "compressed_bytes": 7992437,
+          "sha256": "8b0913ad21b3f58c2bdf033c2f0a769a14588b67d61fa971f004178a4dd775ce",
+          "cram_bytes": 18581389,
+          "cram_sha256": "ceaf8e4a5b142f7002c17bd3351efc82f527c8acf5a33d339d913c5e23c65fe6",
+          "record_round_trip": "passed; all fields and aux tags, tag order normalized; decode_md=0"
+        },
+        {
+          "version": "3.1",
+          "container_count": 14,
+          "methods": {
+            "1": 77,
+            "0": 318,
+            "5": 288
+          },
+          "gzip_sizes": {
+            "up_to_65535": 69,
+            "over_65535": 7
+          },
+          "inflated_bytes": 1047890,
+          "compressed_bytes": 263490,
+          "sha256": "5b778f5f77ad02324babafa118b7ea4e72c80b2a3854d84fc7c325ddaccc9d7e",
+          "cram_bytes": 18166087,
+          "cram_sha256": "cecb76bb20a176f1d6d00eaaf15af807c716804231d4d76568940d58284c50a8",
+          "record_round_trip": "passed; all fields and aux tags, tag order normalized; decode_md=0"
+        }
+      ]
+    },
+    {
+      "sample": "ont_hg002",
+      "region": "chr20:10000000-12000000",
+      "selection": "First up to 2000 records with stored sequence >=1000 bases; capped at 100 MiB SAM records",
+      "records": 1414,
+      "bases": 29572149,
+      "median_read_length": 20351.0,
+      "min_read_length": 1014,
+      "max_read_length": 194545,
+      "bam_bytes": 30502079,
+      "bam_sha256": "abae458a7228f543892aa46e9aa186e3377c4343c79a77e0ecb270652a99027c",
+      "canonical_records_sha256": "5943e64eeb2e2c1102778ff3bdaaa61138baa34428224de90987e48710a2ff33",
+      "alignment": "aligned",
+      "crams": [
+        {
+          "version": "3.0",
+          "container_count": 14,
+          "methods": {
+            "1": 114,
+            "0": 221,
+            "4": 106
+          },
+          "gzip_sizes": {
+            "up_to_65535": 95,
+            "over_65535": 18
+          },
+          "inflated_bytes": 10701818,
+          "compressed_bytes": 7775269,
+          "sha256": "d3744d755e23a7c8c2cb266ff0728829ce829c749735c5ffbd7542fb9061fc71",
+          "cram_bytes": 18784283,
+          "cram_sha256": "e857045d1c35894ec2e16563648fedfb2a217fa925c34cf33d689a94d0605bc4",
+          "record_round_trip": "passed; all fields and aux tags, tag order normalized; decode_md=0"
+        },
+        {
+          "version": "3.1",
+          "container_count": 14,
+          "methods": {
+            "1": 70,
+            "0": 223,
+            "5": 148
+          },
+          "gzip_sizes": {
+            "up_to_65535": 63,
+            "over_65535": 6
+          },
+          "inflated_bytes": 1579547,
+          "compressed_bytes": 578280,
+          "sha256": "ba96df00a44d31822a1e86d983ffa5722cd8bdacdcba91c093a3d9fc295d0c79",
+          "cram_bytes": 18587757,
+          "cram_sha256": "6887569c13af7b5da65eb4635f5706b67e0b8b6644be940224b1e150b088ad6f",
+          "record_round_trip": "passed; all fields and aux tags, tag order normalized; decode_md=0"
+        }
+      ]
+    },
+    {
+      "sample": "hifi_hg002",
+      "region": null,
+      "selection": "First up to 2000 records with stored sequence >=1000 bases; capped at 100 MiB SAM records",
+      "records": 2000,
+      "bases": 34610067,
+      "median_read_length": 16914.5,
+      "min_read_length": 3722,
+      "max_read_length": 33940,
+      "bam_bytes": 14962860,
+      "bam_sha256": "22cf2f4c357f3b00f001818c6e7d7f92f8e56c84d99fa1cd2edc6f11507ab61b",
+      "canonical_records_sha256": "00bcabf26169100db28bafbdf5b7d714aed22d5c2f647f1222f169274c8cf0db",
+      "alignment": "unaligned",
+      "crams": [
+        {
+          "version": "3.0",
+          "container_count": 10,
+          "methods": {
+            "1": 95,
+            "0": 55,
+            "4": 29
+          },
+          "gzip_sizes": {
+            "up_to_65535": 79,
+            "over_65535": 15
+          },
+          "inflated_bytes": 35785337,
+          "compressed_bytes": 6816694,
+          "sha256": "a50ee2839fbcb3a4d02bd081be6587fc3cd51a778fbc65981dae33d16d41500d",
+          "cram_bytes": 11225360,
+          "cram_sha256": "862d47b1f600adef8ca5a82b38d9462929eed0e9d04a3c0bc839ab2762624637",
+          "record_round_trip": "passed; all fields and aux tags, tag order normalized and undefined unmapped MAPQ normalized to 0; decode_md=0"
+        },
+        {
+          "version": "3.1",
+          "container_count": 10,
+          "methods": {
+            "1": 48,
+            "0": 45,
+            "8": 8,
+            "5": 78
+          },
+          "gzip_sizes": {
+            "up_to_65535": 32,
+            "over_65535": 15
+          },
+          "inflated_bytes": 35639984,
+          "compressed_bytes": 6779357,
+          "sha256": "8453373ab71258974233b1a8a1579fccf02c525575ce94a9a42ef98aacd5eb40",
+          "cram_bytes": 10868520,
+          "cram_sha256": "729dde89051c7221d9472dd63fadab255bf7d82829e36349ba5e69b2c15cc1d7",
+          "record_round_trip": "passed; all fields and aux tags, tag order normalized and undefined unmapped MAPQ normalized to 0; decode_md=0"
+        }
+      ]
+    }
+  ]
+}

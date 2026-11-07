@@ -1,0 +1,87 @@
+# zflate (6b61f30) against libdeflate 1.26 at every level, Xeon Gold 5418Y, one core (pinned),
+# 4 MiB windows of whole BGZF blocks, one build: examples/compress.rs compare <file> 0,...,12 3
+# (median of 3 alternating rounds). 2026-11-07.
+ilmn.chr20.bam (245 blocks, 15.2 MiB)
+  level  0: zflate  19398.3 MiB/s, libdeflate  16692.1 MiB/s, speed  116.2%;  size 15943487 vs 15943487, 100.000%
+  level  1: zflate    171.7 MiB/s, libdeflate    179.8 MiB/s, speed   95.5%;  size 4603581 vs 4607826,  99.908%
+  level  2: zflate    133.6 MiB/s, libdeflate    131.3 MiB/s, speed  101.7%;  size 4523391 vs 4523410, 100.000%
+  level  3: zflate    118.1 MiB/s, libdeflate    118.7 MiB/s, speed   99.5%;  size 4442947 vs 4442941, 100.000%
+  level  4: zflate    106.1 MiB/s, libdeflate    108.2 MiB/s, speed   98.1%;  size 4391824 vs 4391798, 100.001%
+  level  5: zflate    110.9 MiB/s, libdeflate     88.9 MiB/s, speed  124.8%;  size 4322279 vs 4290095, 100.750%
+  level  6: zflate     66.9 MiB/s, libdeflate     68.0 MiB/s, speed   98.4%;  size 4213268 vs 4213309,  99.999%
+  level  7: zflate     43.4 MiB/s, libdeflate     44.8 MiB/s, speed   96.9%;  size 4162789 vs 4162825,  99.999%
+  level  8: zflate     23.4 MiB/s, libdeflate     24.8 MiB/s, speed   94.3%;  size 4126645 vs 4126671,  99.999%
+  level  9: zflate     17.7 MiB/s, libdeflate     18.9 MiB/s, speed   93.3%;  size 4116354 vs 4116384,  99.999%
+  level 10: zflate      6.1 MiB/s, libdeflate      5.5 MiB/s, speed  109.5%;  size 3990121 vs 3990174,  99.999%
+  level 11: zflate      3.7 MiB/s, libdeflate      3.2 MiB/s, speed  117.0%;  size 3961572 vs 3961603,  99.999%
+  level 12: zflate      2.8 MiB/s, libdeflate      2.4 MiB/s, speed  119.5%;  size 3949894 vs 3949921,  99.999%
+hifi.chr20.bam (445 blocks, 19.6 MiB)
+  level  0: zflate  18293.6 MiB/s, libdeflate  16173.4 MiB/s, speed  113.1%;  size 20510977 vs 20510977, 100.000%
+  level  1: zflate    200.1 MiB/s, libdeflate    198.6 MiB/s, speed  100.7%;  size 4857369 vs 4858887,  99.969%
+  level  2: zflate    145.2 MiB/s, libdeflate    140.0 MiB/s, speed  103.7%;  size 4560644 vs 4560644, 100.000%
+  level  3: zflate    125.6 MiB/s, libdeflate    124.5 MiB/s, speed  100.9%;  size 4467608 vs 4467608, 100.000%
+  level  4: zflate    112.1 MiB/s, libdeflate    112.9 MiB/s, speed   99.3%;  size 4417364 vs 4417364, 100.000%
+  level  5: zflate    116.4 MiB/s, libdeflate     94.2 MiB/s, speed  123.5%;  size 4359627 vs 4311441, 101.118%
+  level  6: zflate     71.2 MiB/s, libdeflate     72.4 MiB/s, speed   98.3%;  size 4243111 vs 4243111, 100.000%
+  level  7: zflate     44.1 MiB/s, libdeflate     45.7 MiB/s, speed   96.5%;  size 4177538 vs 4177538, 100.000%
+  level  8: zflate     21.4 MiB/s, libdeflate     23.0 MiB/s, speed   93.2%;  size 4120918 vs 4120918, 100.000%
+  level  9: zflate     14.6 MiB/s, libdeflate     15.8 MiB/s, speed   92.5%;  size 4093003 vs 4093003, 100.000%
+  level 10: zflate      5.0 MiB/s, libdeflate      4.9 MiB/s, speed  101.1%;  size 3882815 vs 3882815, 100.000%
+  level 11: zflate      3.1 MiB/s, libdeflate      2.9 MiB/s, speed  104.9%;  size 3852721 vs 3852721, 100.000%
+  level 12: zflate      2.0 MiB/s, libdeflate      1.9 MiB/s, speed  106.3%;  size 3842263 vs 3842263, 100.000%
+HG001_PAW79146.calls.sorted.bam (188 blocks, 8.9 MiB)
+  level  0: zflate  20825.4 MiB/s, libdeflate  20835.5 MiB/s, speed  100.0%;  size 9314095 vs 9314095, 100.000%
+  level  1: zflate    154.2 MiB/s, libdeflate    133.7 MiB/s, speed  115.3%;  size 4398713 vs 4400145,  99.967%
+  level  2: zflate     92.3 MiB/s, libdeflate     91.7 MiB/s, speed  100.7%;  size 4064614 vs 4064636,  99.999%
+  level  3: zflate     86.3 MiB/s, libdeflate     86.8 MiB/s, speed   99.5%;  size 4043829 vs 4043844, 100.000%
+  level  4: zflate     82.5 MiB/s, libdeflate     83.8 MiB/s, speed   98.4%;  size 4031993 vs 4032012, 100.000%
+  level  5: zflate     86.4 MiB/s, libdeflate     71.2 MiB/s, speed  121.3%;  size 3994625 vs 3998817,  99.895%
+  level  6: zflate     61.6 MiB/s, libdeflate     61.8 MiB/s, speed   99.7%;  size 3977345 vs 3977356, 100.000%
+  level  7: zflate     44.9 MiB/s, libdeflate     45.6 MiB/s, speed   98.3%;  size 3959008 vs 3959028,  99.999%
+  level  8: zflate     24.9 MiB/s, libdeflate     26.6 MiB/s, speed   93.8%;  size 3942399 vs 3942426,  99.999%
+  level  9: zflate     18.1 MiB/s, libdeflate     19.5 MiB/s, speed   92.7%;  size 3935745 vs 3935746, 100.000%
+  level 10: zflate      6.9 MiB/s, libdeflate      6.7 MiB/s, speed  102.0%;  size 3756016 vs 3755792, 100.006%
+  level 11: zflate      5.1 MiB/s, libdeflate      4.7 MiB/s, speed  108.4%;  size 3742171 vs 3742282,  99.997%
+  level 12: zflate      4.0 MiB/s, libdeflate      3.6 MiB/s, speed  112.4%;  size 3740429 vs 3740594,  99.996%
+x.bcf (1310 blocks, 81.6 MiB)
+  level  0: zflate  12336.9 MiB/s, libdeflate  12144.3 MiB/s, speed  101.6%;  size 85523350 vs 85523350, 100.000%
+  level  1: zflate    677.4 MiB/s, libdeflate    293.3 MiB/s, speed  231.0%;  size 4520009 vs 4521417,  99.969%
+  level  2: zflate    364.3 MiB/s, libdeflate    334.9 MiB/s, speed  108.8%;  size 4475153 vs 4476209,  99.976%
+  level  3: zflate    336.8 MiB/s, libdeflate    313.4 MiB/s, speed  107.5%;  size 4426154 vs 4427285,  99.974%
+  level  4: zflate    302.1 MiB/s, libdeflate    287.1 MiB/s, speed  105.2%;  size 4381959 vs 4383018,  99.976%
+  level  5: zflate    431.5 MiB/s, libdeflate    257.7 MiB/s, speed  167.4%;  size 4336024 vs 4343321,  99.832%
+  level  6: zflate    212.8 MiB/s, libdeflate    206.4 MiB/s, speed  103.1%;  size 4255536 vs 4256298,  99.982%
+  level  7: zflate    129.5 MiB/s, libdeflate    130.1 MiB/s, speed   99.5%;  size 4154971 vs 4155778,  99.981%
+  level  8: zflate     60.3 MiB/s, libdeflate     63.1 MiB/s, speed   95.7%;  size 4018174 vs 4018812,  99.984%
+  level  9: zflate     40.7 MiB/s, libdeflate     43.0 MiB/s, speed   94.5%;  size 3974694 vs 3975427,  99.982%
+  level 10: zflate     11.2 MiB/s, libdeflate     11.5 MiB/s, speed   97.3%;  size 3801185 vs 3801851,  99.982%
+  level 11: zflate      5.7 MiB/s, libdeflate      5.7 MiB/s, speed   99.3%;  size 3724421 vs 3725287,  99.977%
+  level 12: zflate      3.0 MiB/s, libdeflate      2.9 MiB/s, speed  100.8%;  size 3676464 vs 3677461,  99.973%
+1kGP_high_coverage_Illumina.chr22.filtered.SNV_INDEL_SV_phased_panel.vcf.gz (2056 blocks, 128.0 MiB)
+  level  0: zflate  12076.4 MiB/s, libdeflate  11955.1 MiB/s, speed  101.0%;  size 134225960 vs 134225960, 100.000%
+  level  1: zflate    800.9 MiB/s, libdeflate    569.0 MiB/s, speed  140.8%;  size 5297708 vs 5299465,  99.967%
+  level  2: zflate    416.8 MiB/s, libdeflate    383.0 MiB/s, speed  108.8%;  size 4799467 vs 4800795,  99.972%
+  level  3: zflate    378.8 MiB/s, libdeflate    351.5 MiB/s, speed  107.8%;  size 4635092 vs 4636276,  99.974%
+  level  4: zflate    329.5 MiB/s, libdeflate    312.4 MiB/s, speed  105.5%;  size 4653031 vs 4654863,  99.961%
+  level  5: zflate    477.2 MiB/s, libdeflate    278.7 MiB/s, speed  171.2%;  size 4510502 vs 4550978,  99.111%
+  level  6: zflate    225.1 MiB/s, libdeflate    219.6 MiB/s, speed  102.5%;  size 4394535 vs 4396045,  99.966%
+  level  7: zflate    139.5 MiB/s, libdeflate    140.2 MiB/s, speed   99.5%;  size 4230471 vs 4231989,  99.964%
+  level  8: zflate     64.9 MiB/s, libdeflate     67.1 MiB/s, speed   96.7%;  size 4122408 vs 4123786,  99.967%
+  level  9: zflate     44.0 MiB/s, libdeflate     45.9 MiB/s, speed   95.8%;  size 4073158 vs 4074489,  99.967%
+  level 10: zflate     13.9 MiB/s, libdeflate     13.9 MiB/s, speed   99.6%;  size 3752765 vs 3754277,  99.960%
+  level 11: zflate      8.1 MiB/s, libdeflate      8.0 MiB/s, speed  101.6%;  size 3675238 vs 3676624,  99.962%
+  level 12: zflate      4.5 MiB/s, libdeflate      4.3 MiB/s, speed  104.7%;  size 3621617 vs 3623227,  99.956%
+fragmented-reference.fa.gz (67 blocks, 4.1 MiB)
+  level  0: zflate  21611.8 MiB/s, libdeflate  20638.1 MiB/s, speed  104.7%;  size 4258127 vs 4258127, 100.000%
+  level  1: zflate    180.6 MiB/s, libdeflate    205.0 MiB/s, speed   88.1%;  size 1391452 vs 1391851,  99.971%
+  level  2: zflate     99.0 MiB/s, libdeflate    100.0 MiB/s, speed   99.0%;  size 1356658 vs 1356683,  99.998%
+  level  3: zflate     77.1 MiB/s, libdeflate     78.4 MiB/s, speed   98.3%;  size 1305750 vs 1305755, 100.000%
+  level  4: zflate     69.0 MiB/s, libdeflate     71.5 MiB/s, speed   96.5%;  size 1308848 vs 1308832, 100.001%
+  level  5: zflate     70.9 MiB/s, libdeflate     53.1 MiB/s, speed  133.5%;  size 1300664 vs 1313676,  99.009%
+  level  6: zflate     36.6 MiB/s, libdeflate     36.6 MiB/s, speed  100.0%;  size 1318099 vs 1318104, 100.000%
+  level  7: zflate     11.1 MiB/s, libdeflate     11.3 MiB/s, speed   98.1%;  size 1302170 vs 1302176, 100.000%
+  level  8: zflate      5.8 MiB/s, libdeflate      6.1 MiB/s, speed   94.6%;  size 1295178 vs 1295175, 100.000%
+  level  9: zflate      5.2 MiB/s, libdeflate      5.5 MiB/s, speed   94.0%;  size 1295441 vs 1295439, 100.000%
+  level 10: zflate      4.8 MiB/s, libdeflate      5.3 MiB/s, speed   89.3%;  size 1207719 vs 1207718, 100.000%
+  level 11: zflate      3.8 MiB/s, libdeflate      4.3 MiB/s, speed   89.3%;  size 1191115 vs 1191113, 100.000%
+  level 12: zflate      2.8 MiB/s, libdeflate      3.1 MiB/s, speed   89.4%;  size 1188966 vs 1188967, 100.000%

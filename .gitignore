@@ -1,0 +1,4 @@
+/target
+# Separate target directories, as for the sanitizer and Miri builds.
+/target-*/
+/arm-check-*.txt

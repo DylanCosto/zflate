@@ -1,0 +1,34 @@
+[package]
+name = "zflate-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+libdeflater = "1.26"
+zflate = { path = ".." }
+
+[[bin]]
+name = "inflate"
+path = "fuzz_targets/inflate.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "deflate"
+path = "fuzz_targets/deflate.rs"
+test = false
+doc = false
+bench = false
+
+[profile.release]
+debug = 1
+
+# Not part of zflate's own build.
+[workspace]
+members = ["."]
