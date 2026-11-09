@@ -4,6 +4,7 @@
 //! lets libdeflate skip the bookkeeping a streaming inflater needs, and it is all BGZF and CRAM
 //! need.
 
+mod adler32;
 mod alloc;
 mod crc32;
 mod deflate;
@@ -25,6 +26,9 @@ pub(crate) fn cold_path() {}
 
 use std::fmt;
 
+pub use crate::adler32::adler32;
+#[doc(hidden)]
+pub use crate::adler32::implementations as adler32_implementations;
 pub use crate::crc32::crc32;
 #[doc(hidden)]
 pub use crate::crc32::implementations as crc32_implementations;
@@ -480,11 +484,4 @@ pub fn zlib_compress_bound(len: usize) -> usize {
 /// The most a gzip member of `len` bytes can compress to, at any level.
 pub fn gzip_compress_bound(len: usize) -> usize {
     GZIP_OVERHEAD + deflate_compress_bound(len)
-}
-
-/// Updates an Adler-32 with `data`, starting from 1, as libdeflate's `libdeflate_adler32` does.
-pub fn adler32(adler: u32, data: &[u8]) -> u32 {
-    let mut hash = simd_adler32::Adler32::from_checksum(adler);
-    hash.write(data);
-    hash.finish()
 }

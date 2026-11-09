@@ -290,7 +290,7 @@ so table building weighs less) and higher ones for HiFi (113% against 107–108%
   that compress 8:1 or less, literal-pair entries in a 12-bit main table (§5.9). That choice
   is made per call from the input and output sizes; callers need not do anything.
 - `src/lib.rs` — libdeflate-shaped API: `Decompressor::{deflate,zlib,gzip}_decompress(data,
-  out) -> Result<usize, DecompressionError>`, `crc32`, `adler32` (via `simd-adler32`).
+  out) -> Result<usize, DecompressionError>`, `crc32`, `adler32` (`src/adler32.rs`, §5.15).
   Decodes straight into the caller's buffer.
 - Unsafe code: the fastloop (one region, raw pointers, guarded by its room check), the match
   copy, unchecked main-table lookups, three CRC loads, and the BMI2/feature dispatch calls;
@@ -885,6 +885,43 @@ Validation: the suite (34 tests) passes in release and debug builds, with Rust 1
 x86-64 under Rosetta, and under AddressSanitizer (nightly, `-Zbuild-std`); 20,002 real
 blocks decoded with no failures; `cargo fmt` and `clippy -D warnings` clean.
 
+### 5.15 Adler-32: libdeflate's SIMD versions, VNNI included
+
+zflate took its Adler-32 from the `simd-adler32` crate, whose fastest x86 version on stable
+Rust is AVX2 (its AVX-512 version needs nightly). libdeflate and `adler32furious` (sirocco's)
+use the dot-product instructions, `vpdpbusd` and `udot`, which weight and sum four bytes into
+a 32-bit lane in one instruction. `src/adler32/` ports libdeflate's `x86/adler32_template.h`
+and `arm/adler32_impl.h`: AVX-512 VNNI on 512- and 256-bit vectors (the 256-bit one for the
+Intel cores that slow down after 512-bit work, as libdeflate decides), AVX-VNNI, AVX2 and
+SSE2 on x86-64; NEON and NEON with `udot` on Arm, `udot` through one instruction of inline
+assembly, since its intrinsic is unstable in Rust 1.91. zflate now has no dependencies.
+
+On the Xeon Gold 5418Y, one core, data in cache (GiB/s):
+
+| Bytes | 16 | 64 | 256 | 1,024 | 4,096 | 65,536 |
+|---|---|---|---|---|---|---|
+| libdeflate | 2.0 | 7.8 | 21.9 | 51.7 | 73.8 | 60.5 |
+| `simd-adler32` (zflate 1.0.0) | 1.7 | 7.0 | 17.8 | 29.3 | 33.2 | 32.1 |
+| **AVX-512 VNNI, 512-bit (chosen)** | 1.8 | 7.0 | 22.8 | 51.3 | 73.9 | 60.4 |
+| AVX-512 VNNI, 256-bit | 2.0 | 9.0 | 24.3 | 46.2 | 55.5 | 56.0 |
+| AVX-VNNI | 0.7 | 8.0 | 22.1 | 45.3 | 55.6 | 56.2 |
+| AVX2 | 1.3 | 7.0 | 17.9 | 27.0 | 31.8 | 31.8 |
+| SSE2 | 1.4 | 6.3 | 13.5 | 16.6 | 17.6 | 17.6 |
+
+Read from memory rather than cache, every version is held to 11–14 GiB/s. Adler-32 is a
+separate pass over the output in `zlib_decompress`, so the gain shows only in zlib streams
+(BGZF, gzip and CRAM use CRC32): `zlib_decompress` of the first 1,000 BGZF blocks of a
+corpus file, as one stream and as 64 KiB streams, is 1–6% faster (BCF 2,560 to 2,710 MiB/s
+as one stream, VCF 2,252 to 2,365, BAM 811 to 827); `zlib_compress` changes by under 1%.
+The AVX-VNNI version is slow on 16-byte inputs because, as in libdeflate, its last partial
+vector is copied with a variable-length `memcpy`.
+
+Validation: each version is checked against the definition on every length to 1,100 bytes,
+around each chunk limit, at 1 MiB, from 64 misaligned starts and from the largest starting
+sums, with all-`0xff` and pseudorandom bytes; the suite passes in debug and release builds,
+with `force-portable`, and with Rust 1.91; `clippy -D warnings` is clean for x86-64 and for
+Arm (Linux and macOS, 1.91 and stable). The Arm versions were compiled but not run.
+
 ## 6. Where zflate's lead comes from, and its limits
 
 - **Match-heavy data (x.bam-like BAM, BCF, VCF).** ~95% of decode time is Huffman decoding:
@@ -935,7 +972,7 @@ blocks decoded with no failures; `cargo fmt` and `clippy -D warnings` clean.
 ## 8. Status and where things are
 
 - The Apple silicon work (§5.13) is in `main`.
-- Benchmarks: `benches/codec.rs`, `benches/crc32.rs`; profiling example
+- Benchmarks: `benches/codec.rs`, `benches/crc32.rs`, `benches/adler32.rs`; profiling example
   `examples/profile.rs` (modes `zflate`, `libdeflate`, `zflate+crc`, `libdeflate+crc`,
   and `zflate-batch`, `zflate-batch+crc`, with `BATCH` blocks per call).
 - The code of the reverted experiments, the measurement scripts and the ISA-L comparison
