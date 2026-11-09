@@ -10,7 +10,7 @@ blocks of BAM, BCF and bgzipped VCF files, and CRAM's gzip blocks.
   silicon.
 - **Compression at libdeflate's sizes**, at every level from 0 to 12, with level 5 tuned
   for speed.
-- **No C code**, and one dependency (`simd-adler32`). CPU features are detected at run time.
+- **No C code and no dependencies.** CPU features are detected at run time.
 
 ## Use
 
